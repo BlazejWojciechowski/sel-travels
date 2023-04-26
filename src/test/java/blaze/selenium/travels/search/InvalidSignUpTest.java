@@ -1,31 +1,15 @@
 package blaze.selenium.travels.search;
 
-import blaze.selenium.travels.service.FactoryDriver;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import java.time.Duration;
 import java.util.List;
-import java.util.Random;
-import java.util.stream.Collectors;
 
-public class InvalidSignUpTest {
+public class InvalidSignUpTest extends BaseTest {
     @Test
     public void singUp() {
-        WebDriver driver = FactoryDriver.getDriver("firefox");
-
-        Duration time = Duration.ofSeconds(10);
-        WebDriverWait wait = new WebDriverWait(driver, time);
-
-        driver.manage().window().maximize();
-        driver.get("http://www.kurs-selenium.pl/demo/");
-
         driver.findElements(By.xpath("//li[@id='li_myaccount']"))
                 .stream()
                 .filter(WebElement::isDisplayed)
