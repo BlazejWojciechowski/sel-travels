@@ -16,7 +16,7 @@ public class HotelSearchTest extends BaseTest {
         hotelSearchPage.setTravellers(2, 3);
         hotelSearchPage.performSearch();
 
-        ResultsPage resultsPage = new ResultsPage(driver);
+        ResultsPage resultsPage = new ResultsPage(driver, wait);
         List<String> hotelNames = resultsPage.getHotelNames();
 
         Assert.assertEquals("Grand Plaza Apartments", hotelNames.get(0));

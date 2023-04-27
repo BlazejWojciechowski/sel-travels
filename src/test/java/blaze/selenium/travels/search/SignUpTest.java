@@ -1,5 +1,7 @@
 package blaze.selenium.travels.search;
 
+import blaze.selenium.travels.pages.HotelSearchPage;
+import blaze.selenium.travels.pages.SignUpPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -14,26 +16,24 @@ public class SignUpTest extends BaseTest {
         Random random = new Random();
         int rand = random.nextInt();
         String email = "testowy" + rand + "@gmail.com";
-        driver.findElements(By.xpath("//li[@id='li_myaccount']"))
-                .stream()
-                .filter(WebElement::isDisplayed)
-                .findFirst()
-                .ifPresent(WebElement::click);
-        driver.findElements(By.xpath("//a[text()='  Sign Up']"))
-                .get(1)
-                .click();
+        String lastName = "Wojciechowski"
+;
+        HotelSearchPage hotelSearchPage = new HotelSearchPage(driver, wait);
+        hotelSearchPage.openSignUpForm();
 
-        driver.findElement(By.name("firstname")).sendKeys("Błażej");
-        driver.findElement(By.name("lastname")).sendKeys("Wojciechowski");
-        driver.findElement(By.name("phone")).sendKeys("123456789");
-        driver.findElement(By.name("email")).sendKeys(email);
-        driver.findElement(By.name("password")).sendKeys("Test123!");
-        driver.findElement(By.name("confirmpassword")).sendKeys("Test123!");
-        driver.findElement(By.xpath("//button[text()=' Sign Up']")).click();
+        SignUpPage signUpPage = new SignUpPage(driver, wait);
+        signUpPage.setFirstName("Błażej");
+        signUpPage.setLastName(lastName);
+        signUpPage.setPhone("123456789");
+        signUpPage.setEmail(email);
+        signUpPage.setPassword("Test123!");
+        signUpPage.setConfirmPassword("Test123!");
+        signUpPage.signUp();
+
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h3[@class='RTL']")));
         WebElement heading = driver.findElement(By.xpath("//h3[@class='RTL']"));
 
-        Assert.assertTrue(heading.getText().contains("Wojciechowski"));
+        Assert.assertTrue(heading.getText().contains(lastName));
     }
 }
