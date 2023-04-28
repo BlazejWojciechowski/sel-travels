@@ -7,6 +7,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class FactoryDriver {
     private static WebDriver driver;
+
     public static WebDriver getDriver(String browser) {
         if (driver == null) {
             switch (browser) {

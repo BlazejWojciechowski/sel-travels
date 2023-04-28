@@ -11,11 +11,13 @@ public class LoggedUserPage {
     private WebElement heading;
     private WebDriver driver;
     private WebDriverWait wait;
+
     public LoggedUserPage(WebDriver driver, WebDriverWait wait) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
         this.wait = wait;
     }
+
     public String getHeadingText() {
         return heading.getText();
     }

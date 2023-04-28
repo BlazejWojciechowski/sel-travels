@@ -11,13 +11,11 @@ public class HotelSearchTest extends BaseTest {
     @Test
     public void search() {
         HotelSearchPage hotelSearchPage = new HotelSearchPage(driver, wait);
-        hotelSearchPage.setCity("London");
-        hotelSearchPage.setDates("12/12/2024", "13/12/2024");
-        hotelSearchPage.setTravellers(2, 3);
-        hotelSearchPage.performSearch();
-
-        ResultsPage resultsPage = new ResultsPage(driver, wait);
-        List<String> hotelNames = resultsPage.getHotelNames();
+        List<String> hotelNames = hotelSearchPage
+                .setCity("London")
+                .setDates("12/12/2024", "13/12/2024")
+                .setTravellers(2, 3)
+                .performSearch().getHotelNames();
 
         Assert.assertEquals("Grand Plaza Apartments", hotelNames.get(0));
 

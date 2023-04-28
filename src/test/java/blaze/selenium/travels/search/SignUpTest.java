@@ -6,6 +6,7 @@ import blaze.selenium.travels.pages.SignUpPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -23,13 +24,7 @@ public class SignUpTest extends BaseTest {
         hotelSearchPage.openSignUpForm();
 
         SignUpPage signUpPage = new SignUpPage(driver, wait);
-        signUpPage.setFirstName("Błażej");
-        signUpPage.setLastName(lastName);
-        signUpPage.setPhone("123456789");
-        signUpPage.setEmail(email);
-        signUpPage.setPassword("Test123!");
-        signUpPage.setConfirmPassword("Test123!");
-        signUpPage.signUp();
+        signUpPage.fillSignUpForm("Błażej", lastName, "123456789", email, "Test123!");
 
         LoggedUserPage loggedUserPage = new LoggedUserPage(driver, wait);
 

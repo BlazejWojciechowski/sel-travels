@@ -33,36 +33,47 @@ public class HotelSearchPage {
     private List<WebElement> signUpLink;
     private WebDriver driver;
     private WebDriverWait wait;
+
     public HotelSearchPage(WebDriver driver, WebDriverWait wait) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
         this.wait = wait;
     }
-    public void setCity(String cityName) {
+
+    public HotelSearchPage setCity(String cityName) {
         searchHotelSpan.click();
         searchHotelInput.sendKeys(cityName);
         String xpath = String.format("//span[@class='select2-match' and text()='%s']", cityName);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
         driver.findElement(By.xpath(xpath)).click();
+        return this;
     }
-    public void setDates(String checkin, String checkout) {
+
+    public HotelSearchPage setDates(String checkin, String checkout) {
         checkinInput.sendKeys(checkin);
         checkoutInput.sendKeys(checkout);
+        return this;
     }
-    public void setTravellers(int adultsToAdd, int childToAdd) {
+
+    public HotelSearchPage setTravellers(int adultsToAdd, int childToAdd) {
         travellersInput.click();
         addTravellers(adultPlusBtn, adultsToAdd);
         addTravellers(childPlusBtn, childToAdd);
+        return this;
     }
+
     private void addTravellers(WebElement travellersBtn, int numberOfTravellers) {
-        for (int i = 0; i < numberOfTravellers; i++ ) {
+        for (int i = 0; i < numberOfTravellers; i++) {
             travellersBtn.click();
         }
     }
-    public void performSearch() {
+
+    public ResultsPage performSearch() {
         searchButton.click();
+        return new ResultsPage(driver, wait);
     }
-    public void openSignUpForm() {
+
+    public SignUpPage openSignUpForm() {
         myAccountLink
                 .stream()
                 .filter(WebElement::isDisplayed)
@@ -71,5 +82,7 @@ public class HotelSearchPage {
         signUpLink
                 .get(1)
                 .click();
+
+        return new SignUpPage(driver, wait);
     }
 }
