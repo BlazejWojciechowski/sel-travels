@@ -1,5 +1,7 @@
 package blaze.selenium.travels.search;
 
+import blaze.selenium.travels.pages.HotelSearchPage;
+import blaze.selenium.travels.pages.SignUpPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
@@ -10,21 +12,13 @@ import java.util.List;
 public class InvalidSignUpTest extends BaseTest {
     @Test
     public void singUp() {
-        driver.findElements(By.xpath("//li[@id='li_myaccount']"))
-                .stream()
-                .filter(WebElement::isDisplayed)
-                .findFirst()
-                .ifPresent(WebElement::click);
-        driver.findElements(By.xpath("//a[text()='  Sign Up']"))
-                .get(1)
-                .click();
+        HotelSearchPage hotelSearchPage = new HotelSearchPage(driver, wait);
+        hotelSearchPage.openSignUpForm();
 
-        driver.findElement(By.xpath("//button[text()=' Sign Up']")).click();
+        SignUpPage signUpPage = new SignUpPage(driver, wait);
+        signUpPage.signUp();
 
-        List<String> errors = driver.findElements(By.xpath("//div[@class='alert alert-danger']//p"))
-                .stream()
-                .map(WebElement::getText)
-                .toList();
+        List<String> errors = signUpPage.getErrors();
 
         errors.forEach(System.out::println);
 

@@ -1,6 +1,7 @@
 package blaze.selenium.travels.search;
 
 import blaze.selenium.travels.pages.HotelSearchPage;
+import blaze.selenium.travels.pages.LoggedUserPage;
 import blaze.selenium.travels.pages.SignUpPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -16,8 +17,8 @@ public class SignUpTest extends BaseTest {
         Random random = new Random();
         int rand = random.nextInt();
         String email = "testowy" + rand + "@gmail.com";
-        String lastName = "Wojciechowski"
-;
+        String lastName = "Wojciechowski";
+
         HotelSearchPage hotelSearchPage = new HotelSearchPage(driver, wait);
         hotelSearchPage.openSignUpForm();
 
@@ -30,10 +31,10 @@ public class SignUpTest extends BaseTest {
         signUpPage.setConfirmPassword("Test123!");
         signUpPage.signUp();
 
+        LoggedUserPage loggedUserPage = new LoggedUserPage(driver, wait);
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h3[@class='RTL']")));
-        WebElement heading = driver.findElement(By.xpath("//h3[@class='RTL']"));
-
-        Assert.assertTrue(heading.getText().contains(lastName));
+        Assert.assertTrue(loggedUserPage.getHeadingText().contains(lastName));
+        Assert.assertEquals(loggedUserPage.getHeadingText(), "Hi, Błażej Wojciechowski");
     }
 }

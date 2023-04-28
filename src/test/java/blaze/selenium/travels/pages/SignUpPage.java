@@ -25,6 +25,8 @@ public class SignUpPage {
     private WebElement confirmPasswordInput;
     @FindBy(xpath = "//button[text()=' Sign Up']")
     private WebElement signUpButton;
+    @FindBy(xpath = "//div[@class='alert alert-danger']//p")
+    private List<WebElement> errors;
 
     public SignUpPage(WebDriver driver, WebDriverWait wait) {
         PageFactory.initElements(driver, this);
@@ -51,5 +53,11 @@ public class SignUpPage {
     }
     public void signUp() {
         signUpButton.click();
+    }
+    public List<String> getErrors() {
+            return errors
+                    .stream()
+                    .map(WebElement::getText)
+                    .toList();
     }
 }
